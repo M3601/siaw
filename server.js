@@ -14,10 +14,11 @@ db.defaults({
   contests: [],
 }).write();
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.set("view engine", "ejs");
-app.listen(process.env.port || 80);
+let port = process.env.port || 80;
+app.listen(port);
 
 app.get("/", (req, res) => {
   res.render("home");
