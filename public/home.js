@@ -181,7 +181,6 @@ document.querySelector("#inizia").addEventListener("click", (event) => {
       raw_data.pareggio = valoreFissoPareggio;
     }
   }
-  console.dir(raw_data);
   let data = {
     headers: {
       "content-type": "application/json; charset=UTF-8",
