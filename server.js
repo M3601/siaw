@@ -17,7 +17,7 @@ db.defaults({
 app.use(express.static("public"));
 app.use(express.json());
 app.set("view engine", "ejs");
-app.listen(80);
+app.listen(process.env.port || 80);
 
 app.get("/", (req, res) => {
   res.render("home");
