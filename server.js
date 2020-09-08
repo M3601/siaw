@@ -17,9 +17,8 @@ db.defaults({
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.set("view engine", "ejs");
-let port = process.env.PORT || 80;
-app.listen(port);
-console.log(port);
+app.listen(process.env.PORT || 80);
+
 app.get("/", (req, res) => {
   res.render("home");
 });
