@@ -19,7 +19,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 let port = process.env.port || 80;
 app.listen(port);
-
+console.log(port);
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -35,9 +35,9 @@ app.post("/create", (req, res) => {
 });
 
 app.get("/404", (req, res) => {
-  // res.send(fs.readSync("./public/404.css"));
   res.sendFile(path.join(__dirname, "/public/404.css"));
 });
+
 app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
   let hash = req.path.substr(8);
   if (db.get("contests").find({ hash: hash }).value() == undefined)
