@@ -1,0 +1,32 @@
+{
+  "name": "siaw",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "author": "Amato Michele Pasquale",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M3601/siaw.git"
+  },
+  "bugs": {
+    "url": "https://github.com/M3601/siaw/issues"
+  },
+  "homepage": "https://github.com/M3601/siaw#readme",
+  "description": "",
+  "engines": {
+    "node": "14.9.0"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "knex": "^0.21.5",
+    "lowdb": "^1.0.0",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}

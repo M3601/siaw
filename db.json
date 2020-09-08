@@ -1,0 +1,13 @@
+{
+  "contests": [
+    {
+      "componenti": [
+        "abc",
+        "def"
+      ],
+      "tempoMassimo": 30,
+      "performance": false,
+      "hash": "2fc67b9e00dbd93abb0f2a8cdbb1206c76f13f2b00bc52491c0912af78746204"
+    }
+  ]
+}

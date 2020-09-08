@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIAW Contest Manager</title>
+    <meta name="theme-color" content="#ff1744">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./home.css">
+</head>
+
+<body>
+    <div class="logo">
+        <img src="./arm.svg" alt="">
+        <div class="text">
+            <h1>SIAW</h1>
+            <h4>Salento International Arm Wrestling</h4>
+        </div>
+    </div>
+
+    <div class="form">
+        <div class="card">
+            <div class="title">Componenti di gara</div>
+            <div class="componenti">
+                <input type="text" placeholder="Componente 1">
+                <input type="text" placeholder="Componente 2">
+            </div>
+            <button id='aggiungi'>
+                <span class="add"></span>
+                Aggiungine un altro
+            </button>
+        </div>
+        <div class="card">
+            <div class="title">Parametri di gara</div>
+            <div class="dettagli">
+                <div class="row">
+                    <span>Tempo massimo per incontro (in secondi)</span>
+                    <input type="number" value=30 id='tempo-massimo'>
+                </div>
+                <div class="row">
+                    <span>Tipo</span>
+                    <div class="toggle">
+                        <input type="checkbox" name="performance" id='performance'>
+                        <label for="performance"></label>
+                    </div>
+                </div>
+                <div class="row hide">
+                    <span>Assegnazione punteggio</span>
+                    <div class="toggle">
+                        <input type="checkbox" name="tempo" id='tempo'>
+                        <label for="tempo"></label>
+                    </div>
+                </div>
+                <div class="valori-fissi hide">
+                    <div class="row">
+                        <span>Punti al vincitore</span>
+                        <input type="number" value=10 id='valore-fisso-vincitore'>
+                    </div>
+                    <div class="row">
+                        <span>Punti allo sconfitto</span>
+                        <input type="number" value=1 id='valore-fisso-perdente'>
+                    </div>
+                    <div class="row">
+                        <span>Punti al pareggio</span>
+                        <input type="number" value=5 id='valore-fisso-pareggio'>
+                    </div>
+                </div>
+                <div class="valori-variabili hide">
+                    <div class="row">
+                        <span>Punti al vincitore</span>
+                        <div class="variabili">
+                            <input type="number" value=-10 id='valore-variabile-vincitore-n'>
+                            <span> punti ogni </span>
+                            <input type="number" value=10 id='valore-variabile-vincitore-d'>
+                            <span> secondi</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <span>Punti allo sconfitto</span>
+                        <div class="variabili">
+                            <input type="number" value=1 id='valore-variabile-perdente-n'>
+                            <span> punti ogni </span>
+                            <input type="number" value=10 id='valore-variabile-perdente-d'>
+                            <span> secondi</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <span>Punti al pareggio</span>
+                        <div class="variabili">
+                            <input type="number" value=2 id='valore-variabile-pareggio-n'>
+                            <span> punti ogni </span>
+                            <input type="number" value=10 id='valore-variabile-pareggio-d'>
+                            <span> secondi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id='inizia'>INIZIA IL TORNEO</button>
+
+    <script src="./home.js"></script>
+</body>
+
+</html>

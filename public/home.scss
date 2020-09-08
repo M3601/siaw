@@ -1,0 +1,296 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Quicksand";
+  color: white;
+}
+.hide {
+  display: none !important;
+}
+body {
+  width: 100vw;
+  background: #ff1744;
+}
+
+input {
+  margin: 5px 0;
+  border-radius: 10px;
+  border: 2px solid #90a4ae;
+  font-size: 20px;
+  color: black;
+  padding: 10px;
+  outline: none;
+  text-align: center;
+  transition: ease-in-out 0.3s;
+  &:focus {
+    border: 2px solid #ff1744;
+  }
+}
+
+button {
+  margin: 5px 0;
+  font-size: 20px;
+  padding: 15px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: none;
+  background: #ff1744;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  transition: ease-in-out 0.5s;
+  .add {
+    mask: url("./add.svg");
+    width: 25px;
+    height: 25px;
+    background: white;
+    margin-right: 10px;
+    transition: ease-in-out 0.5s;
+    mask-repeat: no-repeat;
+  }
+  &:hover {
+    color: #ff1744;
+    background: white;
+    border: 4px solid #ff1744;
+    .add {
+      background: #ff1744;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  width: 100%;
+  height: fit-content;
+  img {
+    height: 60px;
+  }
+  h1 {
+    font-size: 40px;
+    padding-left: 10px;
+  }
+  h4 {
+    font-size: 20px;
+    padding-left: 10px;
+    font-weight: 400;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 45vw;
+  background: white;
+  border-radius: 20px;
+  transition: ease-in-out 0.5s;
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  .title {
+    color: black;
+    font-size: 25px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  .componenti {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .dettagli {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin: 15px 0;
+    }
+    span {
+      color: black;
+      font-size: 18px;
+    }
+  }
+}
+
+.toggle {
+  width: auto;
+  display: flex;
+  flex-flow: column wrap;
+  position: relative;
+  input {
+    width: 100%;
+    appearance: none;
+    border: 2px solid #ff1744;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+    padding: 1px;
+    height: 50px;
+    align-items: center;
+    &:before,
+    &:after {
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 10px;
+      border-radius: 10px;
+      text-align: center;
+      justify-content: center;
+      justify-self: center;
+      flex: 1 0 0;
+      transition: 1s ease-in-out;
+      font-size: 15px;
+    }
+    &:checked {
+      &:after {
+        font-weight: 600;
+        color: white;
+      }
+      & + label {
+        left: 50%;
+      }
+    }
+    &:not(:checked) {
+      &:before {
+        font-weight: 600;
+        color: white;
+      }
+      & + label {
+        left: 1px;
+      }
+    }
+  }
+  label {
+    position: absolute;
+    top: 6px;
+    z-index: 50;
+    width: 50%;
+    height: 48px;
+    background: #ff1744;
+    transition: 0.8s ease-in-out;
+    border-radius: 10px;
+  }
+}
+#performance {
+  &:before {
+    content: "A eliminazione";
+  }
+  &:after {
+    content: "Migliore performance";
+  }
+}
+#tempo {
+  &:before {
+    content: "Valori fissi";
+  }
+  &:after {
+    content: "In base al tempo";
+  }
+}
+
+.variabili {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  input {
+    width: 25%;
+  }
+}
+
+#inizia {
+  padding: 0;
+  width: 75vw;
+  height: 75px;
+  background: white;
+  color: #ff1744;
+  font-size: 25px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 50px;
+  margin: 20px auto;
+  vertical-align: middle;
+  border: 5px solid white;
+  position: relative;
+  overflow: hidden;
+  &:hover {
+    background: #ff1744;
+    color: white;
+    &:before {
+      z-index: 1;
+    }
+    &:after {
+      color: white;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 815px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .logo {
+    img {
+      height: 40px;
+      width: 40px;
+    }
+    h1 {
+      font-size: 30px;
+    }
+    h4 {
+      font-size: 12px;
+    }
+  }
+  .form {
+    flex-direction: column;
+    justify-items: center;
+    align-self: center;
+    width: 90vw;
+    margin: 0;
+  }
+  .card {
+    margin: 25px 0;
+    width: auto;
+  }
+  .card .dettagli .row {
+    flex-direction: column;
+    span {
+      font-size: 13px;
+    }
+  }
+  .toggle input {
+    &:before,
+    &:after {
+      font-size: 14px;
+    }
+  }
+}
