@@ -42,6 +42,7 @@ app.get("/404", (req, res) => {
 });
 
 app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
+  // b2e403061d12050a826150bd42258f4e4ef7e2910ba79a70fa7f57084ded67fd
   let hash = req.path.substr(8);
   if (db.get("contests").find({ hash: hash }).value() == undefined)
     return res.render("404");
