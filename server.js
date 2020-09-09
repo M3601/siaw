@@ -48,7 +48,7 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
   if (db.get("contests").find({ hash: hash }).value() == undefined)
     return res.render("404");
   let contest = db.get("contests").find({ hash: hash });
-  if (!contest.performance) {
+  if (!contest.value().performance) {
     //eliminazione diretta
     let ordine = contest.value().ordine;
     let disputati = contest.value().disputati;
@@ -61,6 +61,8 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
       let partecipanti = [ordine[disputati * 2], ordine[disputati * 2 + 1]];
       res.send(partecipanti[0] + " " + partecipanti[1]);
     }
+  } else {
+    res.send("risorsa non ancora implementata");
   }
 });
 
