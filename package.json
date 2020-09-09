@@ -22,9 +22,7 @@
   "dependencies": {
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "knex": "^0.21.5",
-    "lowdb": "^1.0.0",
-    "sqlite3": "^5.0.0"
+    "lowdb": "^1.0.0"
   },
   "devDependencies": {
     "lite-server": "^2.5.4"

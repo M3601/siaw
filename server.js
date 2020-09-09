@@ -19,6 +19,10 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.listen(process.env.PORT || 80);
 
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/arm.svg"));
+});
+
 app.get("/", (req, res) => {
   res.render("home");
 });
