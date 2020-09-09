@@ -1,9 +1,7 @@
 var express = require("express");
-const ejs = require("ejs");
 const lowdb = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const crypto = require("crypto");
-const fs = require("fs");
 const path = require("path");
 
 var app = express();
@@ -67,6 +65,7 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
 });
 
 app.post("/winner", (req, res) => {
+  //TODO: aggiungi controllo
   let hash = req.body.hash;
   let winner = req.body.winner;
   if (db.get("contests").find({ hash: hash }).value() == undefined)
