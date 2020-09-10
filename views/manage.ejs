@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <button id="c1"><%= concorrente1 %></button>
+    <button id="c2"><%= concorrente2 %></button>
+
+    <script>
+        let raw_data = {
+            hash: "<%= hash %>"
+        };
+        document.querySelector('#c1').addEventListener('click', () => {
+            raw_data.winner = '<%= concorrente1 %>'
+            let data = {
+                headers: {
+                    "content-type": "application/json; charset=UTF-8",
+                },
+                body: JSON.stringify(raw_data),
+                method: "POST",
+            };
+            fetch("/winner", data)
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.message === "ok")
+                        window.location.reload();
+                });
+        })
+        document.querySelector('#c2').addEventListener('click', () => {
+            raw_data.winner = '<%= concorrente2 %>'
+            let data = {
+                headers: {
+                    "content-type": "application/json; charset=UTF-8",
+                },
+                body: JSON.stringify(raw_data),
+                method: "POST",
+            };
+            fetch("/winner", data)
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.message === "ok")
+                        window.location.reload();
+                });
+        })
+    </script>
+</body>
+
+</html>

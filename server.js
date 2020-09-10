@@ -54,12 +54,19 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
     let disputati = contest.value().disputati;
     if (
       ordine.length ==
-      (1 << Math.ceil(Math.log2(contest.value().componenti.length + 1))) - 1
+      2 * disputati + 1
+      // (1 << Math.ceil(Math.log2(contest.value().componenti.length + 1))) - 1
     )
-      res.send("Vincitore: " + ordine[ordine.length - 1]);
+      res.redirect("/view/" + hash);
+    // res.send("Vincitore: " + ordine[ordine.length - 1]);
     else {
       let partecipanti = [ordine[disputati * 2], ordine[disputati * 2 + 1]];
-      res.send(partecipanti[0] + " " + partecipanti[1]);
+      res.render("manage", {
+        concorrente1: partecipanti[0],
+        concorrente2: partecipanti[1],
+        hash: hash,
+      });
+      // res.send(partecipanti[0] + " " + partecipanti[1]);
     }
   } else {
     res.send("risorsa non ancora implementata");
@@ -99,7 +106,15 @@ app.get("/view/[0123456789abcdef]{64}", (req, res) => {
   let contest = db.get("contests").find({ hash: hash }).value();
   if (contest.state === "idle")
     res.send("Il torneo non è stato ancora avviato dal gestore");
-  else res.send("Questo è il tuo hash: " + hash);
+  else {
+    res.send(
+      "Questo è il tuo hash: " +
+        hash +
+        "<br>" +
+        "Il vincitore è: " +
+        contest.ordine[contest.ordine.length - 1]
+    );
+  }
 });
 
 app.get("*", (_req, res) => {
