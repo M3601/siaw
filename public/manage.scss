@@ -29,7 +29,7 @@ body {
     width: 100%;
     justify-content: space-evenly;
     .card {
-      padding: 100px;
+      padding: 10vmin;
       background: white;
       transition: ease-in-out 0.5s;
       box-shadow: 0 5px 20px rgba($color: #000000, $alpha: 0.5);
@@ -38,16 +38,24 @@ body {
       flex-direction: column;
       justify-content: space-around;
       align-items: center;
+      max-width: 45vw;
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 0 30px rgba($color: #000000, $alpha: 0.3);
       }
       svg {
-        width: auto;
-        height: auto;
+        width: 15vmin;
+        height: 15vmin;
       }
       span {
-        font-size: 5vw;
+        margin-top: 10px;
+        text-align: center;
+        width: 20vmin;
+        height: 15vmin;
+        white-space: normal !important;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
       }
     }
     .concorrente1 svg g {
@@ -118,8 +126,7 @@ body {
     width: 100%;
     justify-content: space-evenly;
     .card {
-      cursor: pointer;
-      padding: 100px;
+      padding: 10vmin;
       background: white;
       transition: ease-in-out 0.5s;
       box-shadow: 0 5px 20px rgba($color: #000000, $alpha: 0.5);
@@ -127,16 +134,25 @@ body {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      align-items: center;
+      max-width: 45vw;
       &:hover {
         transform: scale(1.1);
         box-shadow: 0 0 30px rgba($color: #000000, $alpha: 0.3);
       }
       svg {
-        width: auto;
-        height: auto;
+        width: 15vmin;
+        height: 15vmin;
       }
       span {
-        font-size: 5vw;
+        margin-top: 10px;
+        text-align: center;
+        width: 20vmin;
+        height: 15vmin;
+        white-space: normal !important;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
       }
     }
     .concorrente1 svg g {
@@ -180,16 +196,20 @@ body {
   .concorrenti .desc,
   .vincitore .desc {
     flex-direction: column;
-    height: 80%;
     .card {
       justify-content: center;
       align-items: center;
-      padding: 20px 50px;
+      padding: 10px 30px;
+      width: 85vw;
+      min-height: 30vh;
       svg {
-        height: 150px;
+        width: 18vmin;
+        height: 18vmin;
       }
       span {
-        font-size: 8vw;
+        margin-top: 10px;
+        width: 100%;
+        height: 25vmin;
       }
     }
   }

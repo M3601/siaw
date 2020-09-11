@@ -51,6 +51,10 @@ app.get("/js/manage", (_req, res) => {
   res.sendFile(path.join(__dirname, "/public/manage.js"));
 });
 
+app.get("/fitty", (_req, res) => {
+  res.sendFile(path.join(__dirname, "/node_modules/fitty/dist/fitty.min.js"));
+});
+
 app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
   let hash = req.path.substr(8);
   if (db.get("contests").find({ hash: hash }).value() == undefined)
@@ -60,13 +64,7 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
     //eliminazione diretta
     let ordine = contest.value().ordine;
     let disputati = contest.value().disputati;
-    if (
-      ordine.length ==
-      2 * disputati + 1
-      // (1 << Math.ceil(Math.log2(contest.value().componenti.length + 1))) - 1
-    )
-      res.redirect("/view/" + hash);
-    // res.send("Vincitore: " + ordine[ordine.length - 1]);
+    if (ordine.length == 2 * disputati + 1) res.redirect("/view/" + hash);
     else {
       let partecipanti = [ordine[disputati * 2], ordine[disputati * 2 + 1]];
       res.render("manage", {
@@ -75,7 +73,6 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
         hash: hash,
         tempoMax: contest.value().tempoMassimo,
       });
-      // res.send(partecipanti[0] + " " + partecipanti[1]);
     }
   } else {
     res.send("risorsa non ancora implementata");
@@ -96,7 +93,6 @@ app.post("/winner", (req, res) => {
     })
     .write();
   res.json({ message: "ok" });
-  // res.redirect("/manage/" + hash);
 });
 
 app.post("/start", (req, res) => {

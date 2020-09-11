@@ -30,6 +30,8 @@ function decreaseTimer() {
 function tempoScaduto() {
   document.querySelector(".timer").classList.add("hide");
   document.querySelector(".vincitore").classList.remove("hide");
+  fitty(document.querySelector("#concorrente1 > span"));
+  fitty(document.querySelector("#concorrente2 > span"));
   clearInterval(id);
   document.querySelector("#concorrente1").addEventListener("click", () => {
     dichiaraVincitore(concorrente1);
@@ -72,6 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
     "--player2_color",
     color[Math.ceil(Math.random() * 10000) % 16]
   );
+  fitty(
+    document.querySelector(
+      "body > div.concorrenti > div > div.card.concorrente1 > span"
+    )
+  );
+  fitty(
+    document.querySelector(
+      "body > div.concorrenti > div > div.card.concorrente2 > span"
+    )
+  );
+
   id = setInterval(() => {
     if (continua && +document.querySelector(".timer").innerText > 0) {
       decreaseTimer();
