@@ -43,6 +43,14 @@ app.get("/404", (_req, res) => {
   res.sendFile(path.join(__dirname, "/public/404.css"));
 });
 
+app.get("/css/manage", (_req, res) => {
+  res.sendFile(path.join(__dirname, "/public/manage.css"));
+});
+
+app.get("/js/manage", (_req, res) => {
+  res.sendFile(path.join(__dirname, "/public/manage.js"));
+});
+
 app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
   let hash = req.path.substr(8);
   if (db.get("contests").find({ hash: hash }).value() == undefined)
@@ -65,6 +73,7 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
         concorrente1: partecipanti[0],
         concorrente2: partecipanti[1],
         hash: hash,
+        tempoMax: contest.value().tempoMassimo,
       });
       // res.send(partecipanti[0] + " " + partecipanti[1]);
     }

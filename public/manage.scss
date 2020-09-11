@@ -13,15 +13,187 @@ body {
   align-items: center;
 }
 
+.concorrenti {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: space-evenly;
+
+  .desc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+    justify-content: space-evenly;
+    .card {
+      padding: 100px;
+      background: white;
+      transition: ease-in-out 0.5s;
+      box-shadow: 0 5px 20px rgba($color: #000000, $alpha: 0.5);
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba($color: #000000, $alpha: 0.3);
+      }
+      svg {
+        width: auto;
+        height: auto;
+      }
+      span {
+        font-size: 5vw;
+      }
+    }
+    .concorrente1 svg g {
+      fill: var(--player1_color);
+    }
+    .concorrente2 svg g {
+      fill: var(--player2_color);
+    }
+    .vs {
+      color: white;
+      font-size: 12vw;
+    }
+  }
+  button {
+    width: 50%;
+    padding: 15px 25px;
+    font-size: 25px;
+    border: 5px solid white;
+    border-radius: 20px;
+    color: #ff1744;
+    font-weight: 900;
+    background: white;
+    transition: ease-in-out 0.8s;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      color: white;
+      background: #ff1744;
+    }
+  }
+}
+
 .timer {
+  width: 75vmin;
+  height: 75vmin;
   color: white;
-  font-size: 200px;
+  font-size: 25vmin;
   border: 25px solid white;
-  padding: 100px;
   border-radius: 100%;
-  width: 300px;
-  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: ease-in-out 1s;
+  &:after {
+    content: "Clicca per cambiare lo stato";
+    font-size: 4vmin;
+  }
+}
+
+.vincitore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  justify-content: space-evenly;
+  .title {
+    color: white;
+    font-size: 80px;
+  }
+  .desc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+    justify-content: space-evenly;
+    .card {
+      cursor: pointer;
+      padding: 100px;
+      background: white;
+      transition: ease-in-out 0.5s;
+      box-shadow: 0 5px 20px rgba($color: #000000, $alpha: 0.5);
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba($color: #000000, $alpha: 0.3);
+      }
+      svg {
+        width: auto;
+        height: auto;
+      }
+      span {
+        font-size: 5vw;
+      }
+    }
+    .concorrente1 svg g {
+      fill: var(--player1_color);
+    }
+    .concorrente2 svg g {
+      fill: var(--player2_color);
+    }
+  }
+  .pareggio {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    button {
+      width: 50%;
+      padding: 15px 25px;
+      font-size: 25px;
+      border: 5px solid white;
+      border-radius: 20px;
+      color: #ff1744;
+      font-weight: 900;
+      background: white;
+      transition: ease-in-out 0.8s;
+      outline: none;
+      cursor: pointer;
+      &:hover {
+        color: white;
+        background: #ff1744;
+      }
+    }
+  }
+}
+
+.hide {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .concorrenti .desc,
+  .vincitore .desc {
+    flex-direction: column;
+    height: 80%;
+    .card {
+      justify-content: center;
+      align-items: center;
+      padding: 20px 50px;
+      svg {
+        height: 150px;
+      }
+      span {
+        font-size: 8vw;
+      }
+    }
+  }
+  .vincitore .title {
+    font-size: 10vmin;
+  }
 }

@@ -374,7 +374,7 @@ button:hover .add {
   }
 }
 
-@media (max-width: 815px) {
+@media (max-width: 930px) {
   body {
     display: -webkit-box;
     display: -ms-flexbox;

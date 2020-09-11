@@ -19,14 +19,120 @@ body {
           align-items: center;
 }
 
-.timer {
-  color: white;
-  font-size: 200px;
-  border: 25px solid white;
+.concorrenti {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 100%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.concorrenti .desc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 80%;
+  width: 100%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.concorrenti .desc .card {
   padding: 100px;
+  background: white;
+  -webkit-transition: ease-in-out 0.5s;
+  transition: ease-in-out 0.5s;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.concorrenti .desc .card:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.concorrenti .desc .card svg {
+  width: auto;
+  height: auto;
+}
+
+.concorrenti .desc .card span {
+  font-size: 5vw;
+}
+
+.concorrenti .desc .concorrente1 svg g {
+  fill: var(--player1_color);
+}
+
+.concorrenti .desc .concorrente2 svg g {
+  fill: var(--player2_color);
+}
+
+.concorrenti .desc .vs {
+  color: white;
+  font-size: 12vw;
+}
+
+.concorrenti button {
+  width: 50%;
+  padding: 15px 25px;
+  font-size: 25px;
+  border: 5px solid white;
+  border-radius: 20px;
+  color: #ff1744;
+  font-weight: 900;
+  background: white;
+  -webkit-transition: ease-in-out 0.8s;
+  transition: ease-in-out 0.8s;
+  outline: none;
+  cursor: pointer;
+}
+
+.concorrenti button:hover {
+  color: white;
+  background: #ff1744;
+}
+
+.timer {
+  width: 75vmin;
+  height: 75vmin;
+  color: white;
+  font-size: 25vmin;
+  border: 25px solid white;
   border-radius: 100%;
-  width: 300px;
-  height: 300px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -36,5 +142,172 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  cursor: pointer;
+  -webkit-transition: ease-in-out 1s;
+  transition: ease-in-out 1s;
+}
+
+.timer:after {
+  content: "Clicca per cambiare lo stato";
+  font-size: 4vmin;
+}
+
+.vincitore {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 100%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.vincitore .title {
+  color: white;
+  font-size: 80px;
+}
+
+.vincitore .desc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 80%;
+  width: 100%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.vincitore .desc .card {
+  cursor: pointer;
+  padding: 100px;
+  background: white;
+  -webkit-transition: ease-in-out 0.5s;
+  transition: ease-in-out 0.5s;
+  -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.vincitore .desc .card:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.vincitore .desc .card svg {
+  width: auto;
+  height: auto;
+}
+
+.vincitore .desc .card span {
+  font-size: 5vw;
+}
+
+.vincitore .desc .concorrente1 svg g {
+  fill: var(--player1_color);
+}
+
+.vincitore .desc .concorrente2 svg g {
+  fill: var(--player2_color);
+}
+
+.vincitore .pareggio {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.vincitore .pareggio button {
+  width: 50%;
+  padding: 15px 25px;
+  font-size: 25px;
+  border: 5px solid white;
+  border-radius: 20px;
+  color: #ff1744;
+  font-weight: 900;
+  background: white;
+  -webkit-transition: ease-in-out 0.8s;
+  transition: ease-in-out 0.8s;
+  outline: none;
+  cursor: pointer;
+}
+
+.vincitore .pareggio button:hover {
+  color: white;
+  background: #ff1744;
+}
+
+.hide {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .concorrenti .desc,
+  .vincitore .desc {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: 80%;
+  }
+  .concorrenti .desc .card,
+  .vincitore .desc .card {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 20px 50px;
+  }
+  .concorrenti .desc .card svg,
+  .vincitore .desc .card svg {
+    height: 150px;
+  }
+  .concorrenti .desc .card span,
+  .vincitore .desc .card span {
+    font-size: 8vw;
+  }
+  .vincitore .title {
+    font-size: 10vmin;
+  }
 }
 /*# sourceMappingURL=manage.css.map */
