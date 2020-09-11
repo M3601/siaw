@@ -113,11 +113,9 @@ app.get("/view/[0123456789abcdef]{64}", (req, res) => {
     res.send("Il torneo non è stato ancora avviato dal gestore");
   else {
     res.send(
-      "Questo è il tuo hash: " +
-        hash +
-        "<br>" +
-        "Il vincitore è: " +
+      `Questo è il tuo hash: ${hash}<br>Il vincitore è: ${
         contest.ordine[contest.ordine.length - 1]
+      }`
     );
   }
 });
