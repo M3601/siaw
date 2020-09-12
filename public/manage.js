@@ -101,4 +101,20 @@ document.querySelector(".timer").addEventListener("click", () => {
 document.querySelector("#inizia").addEventListener("click", () => {
   document.querySelector(".concorrenti").classList.add("hide");
   document.querySelector(".timer").classList.remove("hide");
+  let data = {
+    headers: {
+      "content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify({
+      hash: hash,
+      state: "started",
+    }),
+    method: "POST",
+  };
+  fetch("/set", data)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.message === "ok") console.dir("ok");
+      else console.dir("failed to update info");
+    });
 });

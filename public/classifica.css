@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Quicksand";
+}
+
+body {
+  padding: 5vmin;
+}
+
+.title,
+.hash {
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  font-size: 10vmin;
+  font-weight: 700;
+}
+
+.hash {
+  font-size: 2vmin;
+  font-weight: 100;
+}
+
+.avvertenza {
+  color: red;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.classifica {
+  margin-top: 25px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50px 1fr;
+      grid-template-columns: 50px 1fr;
+  gap: 5px 2px;
+}
+
+.classifica span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.classifica span:nth-child(2), .classifica span:nth-child(1) {
+  background: gold;
+}
+
+.classifica span:nth-child(3), .classifica span:nth-child(4) {
+  background: silver;
+}
+
+.classifica span:nth-child(5), .classifica span:nth-child(6) {
+  background: #8d6e63;
+}
+
+.classifica .posizione {
+  font-size: 4vmin;
+  text-align: center;
+  padding: 1vmin;
+  font-weight: 800;
+  background: #81d4fa;
+}
+
+.classifica .concorrente {
+  font-size: 5vmin;
+  width: 100%;
+  text-align: center;
+  background: #81d4fa;
+  padding: 1vmin;
+}
+/*# sourceMappingURL=classifica.css.map */

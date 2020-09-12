@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIAW Contest Manager</title>
+    <meta name="theme-color" content="#03A9F4">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/classifica.css">
+</head>
+
+<body>
+    <div class="title">Classifica</div>
+    <div class="hash"><%= hash %></div>
+    <div class="avvertenza">
+        <%= messaggio %>
+    </div>
+    <div class="classifica">
+        <% for (const el of classifica.entries()) {%>
+        <span class="posizione"><%= el[0]+1 %></span>
+        <span class="concorrente"><%= el[1] %></span>
+        <% } %>
+    </div>
+</body>
+
+</html>
