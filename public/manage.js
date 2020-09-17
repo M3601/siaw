@@ -3,24 +3,19 @@ var id;
 const hash = document.querySelector("meta[name=hash]").content;
 const concorrente1 = document.querySelector("meta[name=concorrente1]").content;
 const concorrente2 = document.querySelector("meta[name=concorrente2]").content;
+const performance = document.querySelector("meta[name=performance]").content;
 const color = [
-  "#F44336",
-  "#E91E63",
-  "#9C27B0",
-  "#673AB7",
-  "#3F51B5",
-  "#2196F3",
-  "#03A9F4",
-  "#00BCD4",
-  "#009688",
-  "#4CAF50",
-  "#8BC34A",
-  "#CDDC39",
-  "#FFEB3B",
-  "#FFC107",
-  "#FF9800",
-  "#FF5722",
+  "#33a8c7",
+  "#52e3e1",
+  "#a0e426",
+  "#fdf148",
+  "#ffab00",
+  "#f77976",
+  "#f050ae",
+  "#d883ff",
+  "#9336fd",
 ];
+var tempoRimasto;
 
 function decreaseTimer() {
   document.querySelector(".timer").innerText =
@@ -28,26 +23,47 @@ function decreaseTimer() {
 }
 
 function tempoScaduto() {
+  tempoRimasto = +document.querySelector(".timer").innerText;
   document.querySelector(".timer").classList.add("hide");
   document.querySelector(".vincitore").classList.remove("hide");
   fitty(document.querySelector("#concorrente1 > span"));
   fitty(document.querySelector("#concorrente2 > span"));
   clearInterval(id);
   document.querySelector("#concorrente1").addEventListener("click", () => {
-    dichiaraVincitore(concorrente1);
+    dichiaraVincitore(concorrente1, concorrente2);
   });
   document.querySelector("#concorrente2").addEventListener("click", () => {
-    dichiaraVincitore(concorrente2);
+    dichiaraVincitore(concorrente2, concorrente1);
   });
   document.querySelector("#pareggio").addEventListener("click", () => {
-    alert(
-      "In questa modalità, il pareggio non è contemplato, quindi l'incontro si dovrà rifare: i due concorrenti possono prendersi tutto il tempo che gli sarà necessario"
-    );
-    window.location.reload();
+    if (performance) {
+      let data = {
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          hash: hash,
+          concorrente1: concorrente1,
+          concorrente2: concorrente2,
+          remainingTime: tempoRimasto,
+        }),
+        method: "POST",
+      };
+      fetch("/draw", data)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.message === "ok") window.location.reload();
+        });
+    } else {
+      alert(
+        "In questa modalità, il pareggio non è contemplato, quindi l'incontro si dovrà rifare: i due concorrenti possono prendersi tutto il tempo che gli sarà necessario"
+      );
+      window.location.reload();
+    }
   });
 }
 
-function dichiaraVincitore(vincitore) {
+function dichiaraVincitore(vincitore, perdente) {
   let data = {
     headers: {
       "content-type": "application/json; charset=UTF-8",
@@ -55,24 +71,36 @@ function dichiaraVincitore(vincitore) {
     body: JSON.stringify({
       hash: hash,
       winner: vincitore,
+      remainingTime: tempoRimasto,
     }),
     method: "POST",
   };
   fetch("/winner", data)
     .then((res) => res.json())
     .then((res) => {
-      if (res.message === "ok") window.location.reload();
+      if (res.message === "procedi") {
+        data.body = JSON.stringify({
+          hash: hash,
+          loser: perdente,
+          remainingTime: tempoRimasto,
+        });
+        fetch("/loser", data)
+          .then((res2) => res2.json())
+          .then((res2) => {
+            if (res2.message === "ok") window.location.reload();
+          });
+      }
     });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.style.setProperty(
     "--player1_color",
-    color[Math.ceil(Math.random() * 10000) % 16]
+    color[Math.ceil(Math.random() * 10000) % color.length]
   );
   document.documentElement.style.setProperty(
     "--player2_color",
-    color[Math.ceil(Math.random() * 10000) % 16]
+    color[Math.ceil(Math.random() * 10000) % color.length]
   );
   fitty(
     document.querySelector(
@@ -115,6 +143,6 @@ document.querySelector("#inizia").addEventListener("click", () => {
     .then((res) => res.json())
     .then((res) => {
       if (res.message === "ok") console.dir("ok");
-      else console.dir("failed to update info");
+      else console.error("failed to update info");
     });
 });

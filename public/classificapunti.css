@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Quicksand";
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  padding: 5vmin;
+  background: -webkit-gradient(linear, left bottom, left top, from(#00c8b7), to(#00c853));
+  background: linear-gradient(to top, #00c8b7, #00c853);
+  background-repeat: no-repeat;
+  min-height: 100%;
+}
+
+.title,
+.hash {
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  font-size: 10vmin;
+  font-weight: 700;
+}
+
+.hash {
+  font-size: 2vmin;
+  font-weight: 100;
+}
+
+.avvertenza {
+  color: #ffee58;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.classifica {
+  margin-top: 25px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 15vw 1fr 15vw;
+      grid-template-columns: 15vw 1fr 15vw;
+  gap: 5px 2px;
+}
+
+.classifica span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #b2dfdb;
+  color: black;
+  padding: 10px 0;
+}
+
+.classifica span:nth-child(2), .classifica span:nth-child(1), .classifica span:nth-child(3) {
+  background: #e6ca2e;
+  font-weight: 900;
+}
+
+.classifica span:nth-child(4), .classifica span:nth-child(5), .classifica span:nth-child(6) {
+  background: #cfd8dc;
+  font-weight: 800;
+}
+
+.classifica span:nth-child(7), .classifica span:nth-child(8), .classifica span:nth-child(9) {
+  background: #cd7f32;
+  font-weight: 700;
+}
+
+.classifica .posizione {
+  font-size: 4vmin;
+  text-align: center;
+  padding: 1vmin;
+  font-weight: 800;
+  border-radius: 35px 0 0 35px;
+}
+
+.classifica .concorrente {
+  font-size: 5vmin;
+  width: 100%;
+  text-align: center;
+}
+
+.classifica .punti {
+  font-size: 4vmin;
+  text-align: center;
+  padding: 1vmin;
+  border-radius: 0 35px 35px 0;
+}
+/*# sourceMappingURL=classificapunti.css.map */

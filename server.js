@@ -32,8 +32,21 @@ app.post("/create", (req, res) => {
   console.dir(hash);
   data.hash = hash;
   data.state = "idle";
-  data.ordine = data.componenti.slice();
-  data.ordine.sort(() => Math.random() - 0.5);
+  if (data.performance) {
+    data.componenti.sort(() => Math.random() - 0.5);
+    data.ordine = [];
+    for (let i = 0; i < data.componenti.length - 1; i++)
+      for (let j = i + 1; j < data.componenti.length; j++)
+        data.ordine.push([data.componenti[i], data.componenti[j]]);
+    data.ordine.sort(() => Math.random() - 0.5);
+    data.points = {};
+    data.componenti.forEach((element) => {
+      data.points[element] = 0;
+    });
+  } else {
+    data.ordine = data.componenti.slice();
+    data.ordine.sort(() => Math.random() - 0.5);
+  }
   data.disputati = 0;
   db.get("contests").push(data).write();
   res.json({ url: hash });
@@ -77,22 +90,94 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
         concorrente2: partecipanti[1],
         hash: hash,
         tempoMax: contest.value().tempoMassimo,
+        performance: false,
       });
     }
   } else {
-    res.send("risorsa non ancora implementata");
+    if (contest.value().valoriVariabili) {
+      res.send("risorsa non ancora implementata");
+    } else {
+      let disputati = contest.value().disputati;
+      let p = (n) => {
+        return Math.floor((n * (n - 1)) / 2);
+      };
+      if (disputati >= p(contest.value().componenti.length)) {
+        db.get("contests")
+          .find({ hash: hash })
+          .assign({ state: "finished" })
+          .write();
+        res.redirect("/view/" + hash);
+      } else {
+        res.render("manage", {
+          concorrente1: contest.value().ordine[disputati][0],
+          concorrente2: contest.value().ordine[disputati][1],
+          hash: hash,
+          tempoMax: contest.value().tempoMassimo,
+          performance: true,
+        });
+      }
+    }
   }
 });
 
 app.post("/winner", (req, res) => {
-  //TODO: aggiungi controllo
   let hash = req.body.hash;
   let winner = req.body.winner;
   if (db.get("contests").find({ hash: hash }).value() == undefined)
     return res.render("404");
-  db.get("contests").find({ hash: hash }).get("ordine").push(winner).write();
-  db.get("contests")
-    .find({ hash: hash })
+  if (db.get("contests").find({ hash: hash }).value().performance) {
+    let contest = db.get("contests").find({ hash: hash });
+    let data = {};
+    data[winner] =
+      contest.get("points").value()[winner] + contest.value().vincitore;
+    contest.get("points").assign(data).write();
+    db.get("contests")
+      .find({ hash: hash })
+      .assign({
+        disputati:
+          db.get("contests").find({ hash: hash }).value().disputati + 1,
+      })
+      .write();
+    res.json({ message: "procedi" });
+  } else {
+    db.get("contests").find({ hash: hash }).get("ordine").push(winner).write();
+    db.get("contests")
+      .find({ hash: hash })
+      .assign({
+        disputati:
+          db.get("contests").find({ hash: hash }).value().disputati + 1,
+      })
+      .write();
+    res.json({ message: "ok" });
+  }
+});
+
+app.post("/loser", (req, res) => {
+  let hash = req.body.hash;
+  let loser = req.body.loser;
+  if (db.get("contests").find({ hash: hash }).value() == undefined)
+    return res.render("404");
+  let contest = db.get("contests").find({ hash: hash });
+  let data = {};
+  data[loser] = contest.get("points").value()[loser] + contest.value().perdente;
+  contest.get("points").assign(data).write();
+  res.json({ message: "ok" });
+});
+
+app.post("/draw", (req, res) => {
+  let hash = req.body.hash;
+  let concorrente1 = req.body.concorrente1;
+  let concorrente2 = req.body.concorrente2;
+  if (db.get("contests").find({ hash: hash }).value() == undefined)
+    return res.render("404");
+  let contest = db.get("contests").find({ hash: hash });
+  let data = {};
+  data[concorrente1] =
+    contest.get("points").value()[concorrente1] + contest.value().pareggio;
+  data[concorrente2] =
+    contest.get("points").value()[concorrente2] + contest.value().pareggio;
+  contest.get("points").assign(data).write();
+  contest
     .assign({
       disputati: db.get("contests").find({ hash: hash }).value().disputati + 1,
     })
@@ -118,22 +203,39 @@ app.get("/view/[0123456789abcdef]{64}", (req, res) => {
   if (contest.state === "idle") {
     res.send("Il torneo non è stato ancora avviato dal gestore");
   } else {
-    let classifica = [];
-    contest.ordine
-      .slice()
-      .reverse()
-      .forEach((el) => {
-        if (!classifica.includes(el)) classifica.push(el);
+    if (contest.performance) {
+      let classifica = Object.entries(contest.points).sort((e1, e2) => {
+        if (e1[1] > e2[1]) return -1;
+        else if (e1[1] < e2[1]) return 1;
+        else return 0;
       });
-    console.dir(classifica);
-    res.render("classifica", {
-      classifica: classifica,
-      hash: hash,
-      messaggio:
-        contest.state === "started"
-          ? "Il torneo è ancora in corso di svolgimento"
-          : "",
-    });
+      console.dir(classifica);
+      res.render("classificapunti", {
+        classifica: classifica,
+        hash: hash,
+        messaggio:
+          contest.state === "started"
+            ? "Il torneo è ancora in corso di svolgimento"
+            : "",
+      });
+    } else {
+      let classifica = [];
+      contest.ordine
+        .slice()
+        .reverse()
+        .forEach((el) => {
+          if (!classifica.includes(el)) classifica.push(el);
+        });
+      console.dir(classifica);
+      res.render("classifica", {
+        classifica: classifica,
+        hash: hash,
+        messaggio:
+          contest.state === "started"
+            ? "Il torneo è ancora in corso di svolgimento"
+            : "",
+      });
+    }
   }
 });
 
