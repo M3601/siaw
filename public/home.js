@@ -1,9 +1,3 @@
-document.querySelector(
-  "body > div.form > div:nth-child(1) > div.componenti > input[type=text]:nth-child(1)"
-).value = "abc";
-document.querySelector(
-  "body > div.form > div:nth-child(1) > div.componenti > input[type=text]:nth-child(2)"
-).value = "def";
 document.querySelector("#aggiungi").addEventListener("click", () => {
   let list = document.querySelector(".componenti").children;
   let necessario = true;
