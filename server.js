@@ -43,6 +43,11 @@ app.post("/create", (req, res) => {
     data.componenti.forEach((element) => {
       data.points[element] = 0;
     });
+    try {
+      data.vincitore = data.vincitore[0] / data.vincitore[1];
+      data.perdente = data.perdente[0] / data.perdente[1];
+      data.pareggio = data.pareggio[0] / data.pareggio[1];
+    } catch (error) {}
   } else {
     data.ordine = data.componenti.slice();
     data.ordine.sort(() => Math.random() - 0.5);
@@ -93,29 +98,25 @@ app.get("/manage/[0123456789abcdef]{64}", (req, res) => {
         performance: false,
       });
     }
-  } else {
-    if (contest.value().valoriVariabili) {
-      res.send("risorsa non ancora implementata");
+  } else if (contest.value().valoriVariabili) {
+    let disputati = contest.value().disputati;
+    let p = (n) => {
+      return Math.floor((n * (n - 1)) / 2);
+    };
+    if (disputati >= p(contest.value().componenti.length)) {
+      db.get("contests")
+        .find({ hash: hash })
+        .assign({ state: "finished" })
+        .write();
+      res.redirect("/view/" + hash);
     } else {
-      let disputati = contest.value().disputati;
-      let p = (n) => {
-        return Math.floor((n * (n - 1)) / 2);
-      };
-      if (disputati >= p(contest.value().componenti.length)) {
-        db.get("contests")
-          .find({ hash: hash })
-          .assign({ state: "finished" })
-          .write();
-        res.redirect("/view/" + hash);
-      } else {
-        res.render("manage", {
-          concorrente1: contest.value().ordine[disputati][0],
-          concorrente2: contest.value().ordine[disputati][1],
-          hash: hash,
-          tempoMax: contest.value().tempoMassimo,
-          performance: true,
-        });
-      }
+      res.render("manage", {
+        concorrente1: contest.value().ordine[disputati][0],
+        concorrente2: contest.value().ordine[disputati][1],
+        hash: hash,
+        tempoMax: contest.value().tempoMassimo,
+        performance: true,
+      });
     }
   }
 });
@@ -128,8 +129,22 @@ app.post("/winner", (req, res) => {
   if (db.get("contests").find({ hash: hash }).value().performance) {
     let contest = db.get("contests").find({ hash: hash });
     let data = {};
-    data[winner] =
-      contest.get("points").value()[winner] + contest.value().vincitore;
+    if (contest.value().valoriVariabili) {
+      let tempoTrascorso =
+        contest.value().tempoMassimo - req.body.remainingTime;
+      if (contest.value().vincitore < 0)
+        data[winner] =
+          contest.get("points").value()[winner] +
+          Math.abs(contest.value().tempoMassimo * contest.value().vincitore) +
+          contest.value().vincitore * tempoTrascorso;
+      else
+        data[winner] =
+          contest.get("points").value()[winner] +
+          tempoTrascorso * contest.value().vincitore;
+    } else {
+      data[winner] =
+        contest.get("points").value()[winner] + contest.value().vincitore;
+    }
     contest.get("points").assign(data).write();
     db.get("contests")
       .find({ hash: hash })
@@ -159,7 +174,21 @@ app.post("/loser", (req, res) => {
     return res.render("404");
   let contest = db.get("contests").find({ hash: hash });
   let data = {};
-  data[loser] = contest.get("points").value()[loser] + contest.value().perdente;
+  if (contest.value().valoriVariabili) {
+    let tempoTrascorso = contest.value().tempoMassimo - req.body.remainingTime;
+    if (contest.value().perdente < 0)
+      data[loser] =
+        contest.get("points").value()[loser] +
+        Math.abs(contest.value().tempoMassimo * contest.value().perdente) +
+        contest.value().perdente * tempoTrascorso;
+    else
+      data[loser] =
+        contest.get("points").value()[loser] +
+        tempoTrascorso * contest.value().perdente;
+  } else {
+    data[loser] =
+      contest.get("points").value()[loser] + contest.value().perdente;
+  }
   contest.get("points").assign(data).write();
   res.json({ message: "ok" });
 });
@@ -172,10 +201,31 @@ app.post("/draw", (req, res) => {
     return res.render("404");
   let contest = db.get("contests").find({ hash: hash });
   let data = {};
-  data[concorrente1] =
-    contest.get("points").value()[concorrente1] + contest.value().pareggio;
-  data[concorrente2] =
-    contest.get("points").value()[concorrente2] + contest.value().pareggio;
+  if (contest.value().valoriVariabili) {
+    let tempoTrascorso = contest.value().tempoMassimo - req.body.remainingTime;
+    if (contest.value().pareggio < 0) {
+      data[concorrente1] =
+        contest.get("points").value()[concorrente1] +
+        Math.abs(contest.value().tempoMassimo * contest.value().pareggio) +
+        contest.value().pareggio * tempoTrascorso;
+      data[concorrente2] =
+        contest.get("points").value()[concorrente2] +
+        Math.abs(contest.value().tempoMassimo * contest.value().pareggio) +
+        contest.value().pareggio * tempoTrascorso;
+    } else {
+      data[concorrente1] =
+        contest.get("points").value()[concorrente1] +
+        tempoTrascorso * contest.value().pareggio;
+      data[concorrente2] =
+        contest.get("points").value()[concorrente2] +
+        tempoTrascorso * contest.value().pareggio;
+    }
+  } else {
+    data[concorrente1] =
+      contest.get("points").value()[concorrente1] + contest.value().pareggio;
+    data[concorrente2] =
+      contest.get("points").value()[concorrente2] + contest.value().pareggio;
+  }
   contest.get("points").assign(data).write();
   contest
     .assign({

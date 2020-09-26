@@ -89,7 +89,7 @@ function dichiaraVincitore(vincitore, perdente) {
           .then((res2) => {
             if (res2.message === "ok") window.location.reload();
           });
-      }
+      } else if (res.message === "ok") window.location.reload();
     });
 }
 
